@@ -1,0 +1,23 @@
+name: Run tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        julia-version: [1.x, 1.0.x]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - name: "Set up Julia ${{ matrix.julia-version }}"
+        uses: julia-actions/setup-julia@test/julia-versions
+        with:
+          version: ${{ matrix.julia-version }}
+      - name: Run tests
+        run: |
+          julia --project=@. -e "using Pkg; Pkg.instantiate();"
+          julia --project=@. -e "using Pkg; Pkg.test(\"Example\");"
