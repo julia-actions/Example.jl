@@ -10,7 +10,7 @@ jobs:
       matrix:
         julia-version: ['1', 'nightly']
         julia-arch: [x64, x86]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
         # 32-bit Julia binaries are not available on macOS
         exclude:
           - os: macOS-latest
