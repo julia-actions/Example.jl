@@ -11,6 +11,7 @@ jobs:
       - uses: julia-actions/setup-julia@latest
 
       - name: VersionVigilante.main
+        id: VersionVigilante
         run: |
           julia -e 'using Pkg; Pkg.add(PackageSpec(name="VersionVigilante", rev="da/set-output"))'
           julia -e 'using VersionVigilante; VersionVigilante.main("https://github.com/${{ github.repository }}")'
@@ -27,5 +28,6 @@ jobs:
             
       - name: Test outputs
         run: |
-          echo ${{ outputs.master_version }}
-          echo ${{ outputs.pr_version }}
+          echo ${{ steps.VersionVigilante.outputs }}
+          echo ${{ steps.VersionVigilante.outputs.master_version }}
+          echo ${{ steps.VersionVigilante.outputs.pr_version }}
