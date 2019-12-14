@@ -25,3 +25,7 @@ jobs:
           script: |
             github.issues.addLabels({...context.issue, labels: ['needs version bump']})
             
+      - name: Test outputs
+        run: |
+          echo ${{ outputs.master_version }}
+          echo ${{ outputs.pr_version }}
